@@ -61,6 +61,7 @@ public class Tokenizador {
                     }
 
                     clase = lista2.get(lista2.size()-1);
+                    // a la coleccion de patrones se agrega un nuevo patron
                     patrones.add(new Patron(vector, clase));
                     lista2.clear();
 
