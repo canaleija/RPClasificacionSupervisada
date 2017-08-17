@@ -79,5 +79,15 @@ public class Patron {
         this.vectorCa = vectorCa;
     }
     
+    public double calculaDistancia(Patron patron){
+        double distancia = 0;
+        // recorrer el vector 
+        for (int x=0; x<this.vectorCa.length;x++){
+           distancia+=Math.pow
+           ((this.vectorCa[x]-patron.getVectorCa()[x]),2);
+        }
+        return Math.sqrt(distancia);
+    }
+    
     
 }
