@@ -38,6 +38,13 @@ public class PatronRepresentativo extends Patron{
         
          this.contador++;
     }
+
+    /**
+     * @return the contador
+     */
+    public int getContador() {
+        return contador;
+    }
     
     
     

@@ -34,12 +34,39 @@ public class MinimaDistancia implements Clasificador{
              this.medias.get(pos).acumular(patron);
            }
        }
+      // una vez calculados los acumulados se tiene que 
+      // calcalar los promedio
+      for(PatronRepresentativo media: this.medias){
+          int contador = media.getContador();
+          for (int x=0; x < media.getVectorCa().length;x++){
+            media.getVectorCa()[x]/=contador;
+          }
+      }
     System.out.println();
     }
 
     @Override
-    public String clasifica(Patron patron) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void clasifica(Patron patron) {
+        // partimos de la hipotesis que pertenece a la primer clase
+        double distanciaInicial = patron.calculaDistancia(this.medias.get(0));
+        patron.setClase_resultado(this.medias.get(0).getClase());
+        // recorrer la coleccion de medias 
+        
+        for (int x=1; x<this.medias.size();x++){
+            double distanciaNueva = patron.calculaDistancia(this.medias.get(x));
+            if(distanciaNueva < distanciaInicial){
+              patron.setClase_resultado(this.medias.get(x).getClase());
+              distanciaInicial =  distanciaNueva;
+            }
+        }
+        
+    }
+    
+    public void clasificaConjunto (ArrayList<Patron> patrones){
+    
+       for (Patron aux: patrones){
+           clasifica(aux);
+       }
     }
 
     private int buscarEnMedias(Patron patron) {

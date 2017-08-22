@@ -14,5 +14,5 @@ import java.util.ArrayList;
 public interface Clasificador {
     
     public void entrenar(ArrayList<Patron> instancias);
-    public String clasifica(Patron patron);
+    public void clasifica(Patron patron);
 }

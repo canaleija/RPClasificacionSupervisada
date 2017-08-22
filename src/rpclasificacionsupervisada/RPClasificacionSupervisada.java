@@ -22,12 +22,17 @@ public class RPClasificacionSupervisada {
      */
     public static void main(String[] args) {
        
-        Patron p1 = new Patron(new double[]{5,3.7},"A");
-        Patron p2 = new Patron(new double[]{7,11.3},"A");
-        Patron p3 = new Patron(new double[]{7,11.3},"C");
-        Patron p4 = new Patron(new double[]{7,11.3},"D");
-        Patron p5 = new Patron(new double[]{7,11.3},"C");
-        Patron p6 = new Patron(new double[]{7,11.3},"A");
+        Patron p1 = new Patron(new double[]{2.3,21},"A");
+        Patron p2 = new Patron(new double[]{3.4,2.1},"A");
+        Patron p3 = new Patron(new double[]{1,2},"B");
+        Patron p4 = new Patron(new double[]{3,4},"B");
+        Patron p5 = new Patron(new double[]{5,6},"B");
+        Patron p6 = new Patron(new double[]{4.5,8.98},"C");
+        Patron p7 = new Patron(new double[]{7.6,5.6},"C");
+        Patron pDes = new Patron(new double[]{3.1,4.2},"desconocido");
+       
+         
+        
         ArrayList<Patron> aux = new ArrayList<>();
         aux.add(p1);
         aux.add(p2);
@@ -35,9 +40,12 @@ public class RPClasificacionSupervisada {
         aux.add(p4);
         aux.add(p5);
         aux.add(p6);
+        aux.add(p7);
+        
         MinimaDistancia md = new MinimaDistancia();
         md.entrenar(aux);
-       System.out.println(p1.calculaDistancia(p2));
+        md.clasifica(pDes);
+        System.out.println();
     }
     
 }
