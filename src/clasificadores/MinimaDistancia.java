@@ -16,10 +16,13 @@ import modelos.PatronRepresentativo;
  */
 public class MinimaDistancia implements Clasificador{
 
-    ArrayList<PatronRepresentativo> medias;
+    private ArrayList<PatronRepresentativo> medias;
+    private int contadorCorrectos;
+    private double rendimiento;
     
     public MinimaDistancia(){
        this.medias = new ArrayList<PatronRepresentativo>();
+       this.contadorCorrectos = 0;
     }
     @Override
     public void entrenar(ArrayList<Patron> instancias) {
@@ -47,6 +50,7 @@ public class MinimaDistancia implements Clasificador{
 
     @Override
     public void clasifica(Patron patron) {
+       
         // partimos de la hipotesis que pertenece a la primer clase
         double distanciaInicial = patron.calculaDistancia(this.medias.get(0));
         patron.setClase_resultado(this.medias.get(0).getClase());
@@ -57,16 +61,22 @@ public class MinimaDistancia implements Clasificador{
             if(distanciaNueva < distanciaInicial){
               patron.setClase_resultado(this.medias.get(x).getClase());
               distanciaInicial =  distanciaNueva;
+              // una vez ya clasificado verifico si fue una clasificacion
+              // correcta o incorrecta
+              if(patron.getClase().equals(patron.getClase_resultado()))
+              {contadorCorrectos++;}
             }
         }
         
     }
     
     public void clasificaConjunto (ArrayList<Patron> patrones){
-    
+     this.contadorCorrectos = 0;
        for (Patron aux: patrones){
            clasifica(aux);
        }
+       // calcular el % de clasificion correcta
+       this.rendimiento = (this.contadorCorrectos/patrones.size())*100;
     }
 
     private int buscarEnMedias(Patron patron) {
