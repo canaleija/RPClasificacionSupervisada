@@ -17,7 +17,7 @@ import modelos.PatronRepresentativo;
 public class MinimaDistancia implements Clasificador{
 
     private ArrayList<PatronRepresentativo> medias;
-    private int contadorCorrectos;
+    private double contadorCorrectos;
     private double rendimiento;
     
     public MinimaDistancia(){
@@ -45,7 +45,7 @@ public class MinimaDistancia implements Clasificador{
             media.getVectorCa()[x]/=contador;
           }
       }
-    System.out.println();
+  
     }
 
     @Override
@@ -63,10 +63,14 @@ public class MinimaDistancia implements Clasificador{
               distanciaInicial =  distanciaNueva;
               // una vez ya clasificado verifico si fue una clasificacion
               // correcta o incorrecta
-              if(patron.getClase().equals(patron.getClase_resultado()))
-              {contadorCorrectos++;}
+             
             }
         }
+        
+         if(patron.getClase().equals(patron.getClase_resultado()))
+              {
+                  contadorCorrectos++;
+              }
         
     }
     
