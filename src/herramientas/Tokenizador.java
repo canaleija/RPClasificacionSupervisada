@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.StringTokenizer;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import modelos.Instancias;
 import modelos.Patron;
 
 /**
@@ -22,10 +23,11 @@ import modelos.Patron;
  */
 public class Tokenizador {
     
-    public static ArrayList<Patron> leerInstancias(){
+    public static Instancias leerInstancias(){
      String texto, aux;
      LinkedList<String> lista = new LinkedList();
-     ArrayList<Patron> patrones = new ArrayList<>();
+        Instancias inst = new Instancias();
+     //ArrayList<Patron> patrones = new ArrayList<>();
         try {
             //llamamos el metodo que permite cargar la ventana
             JFileChooser file = new JFileChooser();
@@ -62,7 +64,8 @@ public class Tokenizador {
 
                     clase = lista2.get(lista2.size()-1);
                     // a la coleccion de patrones se agrega un nuevo patron
-                    patrones.add(new Patron(vector, clase));
+                    inst.agregarPatron(new Patron(vector, clase));
+                   // patrones.add();
                     lista2.clear();
 
                 }
@@ -75,7 +78,7 @@ public class Tokenizador {
             return null;
         }
        
-        return patrones;
+        return inst;
      
     }
 }

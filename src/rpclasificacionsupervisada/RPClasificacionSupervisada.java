@@ -9,6 +9,7 @@ import clasificadores.MinimaDistancia;
 import herramientas.GeneradorInstancias;
 import herramientas.Tokenizador;
 import java.util.ArrayList;
+import modelos.Instancias;
 import modelos.Patron;
 
 /**
@@ -24,11 +25,11 @@ public class RPClasificacionSupervisada {
        
          
         
-        ArrayList<Patron> aux = Tokenizador.leerInstancias();
+        Instancias aux = Tokenizador.leerInstancias();
       
-        MinimaDistancia md = new MinimaDistancia();
-        md.entrenar(aux);
-        md.clasificaConjunto(aux);
+//        MinimaDistancia md = new MinimaDistancia();
+//        md.entrenar(aux);
+//        md.clasificaConjunto(aux);
         System.out.println();
     }
     
