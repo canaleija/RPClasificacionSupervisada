@@ -25,15 +25,15 @@ public class Instancias {
     
     public void agregarPatron(Patron patron){
         // agregamos el nuevo patron 
-        this.patrones.add(patron);
+        this.getPatrones().add(patron);
         if (!existe(patron.getClase())){
-          this.clases.add(patron.getClase());
-          this.cantidades.add(0);
+            this.getClases().add(patron.getClase());
+            this.getCantidades().add(0);
           // acumulamos
-          acumular(this.clases.indexOf(patron.getClase()));
+          acumular(this.getClases().indexOf(patron.getClase()));
         }else{
          // acumulamos 
-         acumular(this.clases.indexOf(patron.getClase()));
+         acumular(this.getClases().indexOf(patron.getClase()));
          
         }
         // contar en su respectivo contador
@@ -42,12 +42,54 @@ public class Instancias {
     }
 
     private boolean existe(String clase) {
-       return this.clases.contains(clase);
+       return this.getClases().contains(clase);
     }
 
     private void acumular(int indexOf) {
-       this.cantidades.set(indexOf, this.cantidades.get(indexOf)+1);
+        this.getCantidades().set(indexOf, this.getCantidades().get(indexOf)+1);
               
+    }
+
+    /**
+     * @return the patrones
+     */
+    public ArrayList<Patron> getPatrones() {
+        return patrones;
+    }
+
+    /**
+     * @param patrones the patrones to set
+     */
+    public void setPatrones(ArrayList<Patron> patrones) {
+        this.patrones = patrones;
+    }
+
+    /**
+     * @return the clases
+     */
+    public ArrayList<String> getClases() {
+        return clases;
+    }
+
+    /**
+     * @param clases the clases to set
+     */
+    public void setClases(ArrayList<String> clases) {
+        this.clases = clases;
+    }
+
+    /**
+     * @return the cantidades
+     */
+    public ArrayList<Integer> getCantidades() {
+        return cantidades;
+    }
+
+    /**
+     * @param cantidades the cantidades to set
+     */
+    public void setCantidades(ArrayList<Integer> cantidades) {
+        this.cantidades = cantidades;
     }
     
     
