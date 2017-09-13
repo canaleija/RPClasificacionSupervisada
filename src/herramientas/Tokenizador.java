@@ -22,11 +22,11 @@ import modelos.Patron;
  * @author Roberto Cruz Leija
  */
 public class Tokenizador {
-    
-    public static Instancias leerInstancias(){
+    public static Instancias inst;
+    public static void leerInstancias(){
      String texto, aux;
      LinkedList<String> lista = new LinkedList();
-        Instancias inst = new Instancias();
+     inst = new Instancias();
      //ArrayList<Patron> patrones = new ArrayList<>();
         try {
             //llamamos el metodo que permite cargar la ventana
@@ -75,10 +75,10 @@ public class Tokenizador {
             JOptionPane.showMessageDialog(null, ex + ""
                     + "\nNo se ha encontrado el archivo",
                     "ADVERTENCIA!!!", JOptionPane.WARNING_MESSAGE);
-            return null;
+            
         }
        
-        return inst;
+       
      
     }
 }
