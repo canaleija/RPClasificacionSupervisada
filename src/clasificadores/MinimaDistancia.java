@@ -26,6 +26,7 @@ public class MinimaDistancia implements Clasificador{
     }
     @Override
     public void entrenar(ArrayList<Patron> instancias) {
+        contadorCorrectos = 0;
        // recorrer todas las instancias de entrenamiento
        // agregamos la primer media 
        //this.medias.add(new PatronRepresentativo(instancias.get(0)));
@@ -76,6 +77,7 @@ public class MinimaDistancia implements Clasificador{
     
     public void clasificaConjunto (ArrayList<Patron> patrones){
      this.contadorCorrectos = 0;
+     this.rendimiento = 0;
        for (Patron aux: patrones){
            clasifica(aux);
        }
@@ -93,6 +95,13 @@ public class MinimaDistancia implements Clasificador{
         
         }
         return -1;
+    }
+
+    /**
+     * @return the rendimiento
+     */
+    public double getRendimiento() {
+        return rendimiento;
     }
     
 }

@@ -67,7 +67,7 @@ public class GeneradorInstancias {
     }
 
     private void seleccionaPorcentajeAleatorio(double porcentaje, ArrayList<Patron> nuevaInstancia) {
-        if (porcentaje==100){
+        if (porcentaje==0){
         // no se modifica la referencia
         }else{
             Random ran = new Random();

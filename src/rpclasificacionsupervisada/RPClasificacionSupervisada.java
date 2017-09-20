@@ -9,10 +9,12 @@ import clasificadores.Knn;
 import clasificadores.MinimaDistancia;
 import herramientas.FactorSeleccion;
 import herramientas.GeneradorInstancias;
+import herramientas.Grafica;
 import herramientas.Tokenizador;
 import java.util.ArrayList;
 import modelos.Instancias;
 import modelos.Patron;
+import org.jfree.data.xy.XYDataItem;
 
 /**
  *
@@ -25,19 +27,36 @@ public class RPClasificacionSupervisada {
      */
     public static void main(String[] args) {
        
-         
-        
+           
         Tokenizador.leerInstancias();
-        Knn knn = new Knn(15);
-        knn.entrenar(Tokenizador.inst.getPatrones());
-        knn.clasifica(Tokenizador.inst.getPatrones().get(40));
-//        GeneradorInstancias gi = new GeneradorInstancias(aux);
-//        ArrayList<Patron> nuevas = gi.generaInstancia(new int[]{0,3},90, FactorSeleccion.RANDOM);
-//        System.out.println();
-                
-//        MinimaDistancia md = new MinimaDistancia();
-//        md.entrenar(aux);
-//        md.clasificaConjunto(aux);
+    
+        Grafica grafica = new Grafica("Comparación","%","Comparación Rendimientos");
+        grafica.agrearSerie("md");
+        grafica.agrearSerie("knn");
+        
+        MinimaDistancia md = new MinimaDistancia();
+        Knn knn = new Knn(4);
+        
+        // crear las comparaciones 
+        for (int x=0; x<10;x++){
+            
+            //  entrenar
+            GeneradorInstancias ge = new GeneradorInstancias(Tokenizador.inst);
+            
+            ArrayList<Patron> ce = ge.generaInstancia(new int[]{0,1,2,3}, x*10, FactorSeleccion.RANDOM);
+            md.entrenar(ce);
+            knn.entrenar(ce);
+            // clasificar 
+            md.clasificaConjunto(Tokenizador.inst.getPatrones());
+            double renMd = md.getRendimiento();
+            grafica.agregarDatoASerie("md",new XYDataItem(x, renMd));
+       
+            knn.clasificaConjunto(Tokenizador.inst.getPatrones());
+            double renKnn = knn.getRendimiento();
+            grafica.agregarDatoASerie("knn", new XYDataItem(x, renKnn));
+        }
+        
+        grafica.crearYmostrarGrafica();
        
         System.out.println();
     }

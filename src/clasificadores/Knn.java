@@ -21,9 +21,14 @@ public class Knn  implements Clasificador{
     private ArrayList<Patron> instancias;
     private ArrayList<DistanciaKnn> distancias;
     private int k;
+    private double contadorCorrectos;
+    private double rendimiento;
+    
+    
     public Knn(int k) {
          this.distancias = new ArrayList<>();
          this.k = k;
+         this.contadorCorrectos = 0;
     }
     
     
@@ -35,7 +40,7 @@ public class Knn  implements Clasificador{
 
     @Override
     public void clasifica(Patron patron) {
-        
+        this.distancias = new ArrayList<>();
      // calcular las distancias
      for(Patron aux: this.instancias){
         double dist = patron.calculaDistancia(aux);
@@ -46,12 +51,29 @@ public class Knn  implements Clasificador{
         
      }
      // ordenamos 
-      Ordenamiento.ordenarBurbujaOpt(distancias);
+     Ordenamiento.ordenarBurbujaOpt(distancias);
      // verificar que clase cumple primero con los k vecinos 
      
      String claseResultado = verificarKvecinos();
      patron.setClase_resultado(claseResultado);
+     
+       if(patron.getClase().equals(patron.getClase_resultado()))
+              {
+                  contadorCorrectos++;
+              }
+       
+       System.out.println();
     }
+    
+    public void clasificaConjunto (ArrayList<Patron> patrones){
+     this.contadorCorrectos = 0;
+       for (Patron aux: patrones){
+           clasifica(aux);
+       }
+       // calcular el % de clasificion correcta
+       this.rendimiento = (this.contadorCorrectos/patrones.size())*100;
+    }
+
 
     private String verificarKvecinos() {
         int[] contador = new int[Tokenizador.inst.getClases().size()];
@@ -73,8 +95,15 @@ public class Knn  implements Clasificador{
              }  
                           
             }
-       String clase = Tokenizador.inst.getClases().get(ip);
+        String clase = Tokenizador.inst.getClases().get(ip);
         return  clase;
         }
+
+    /**
+     * @return the rendimiento
+     */
+    public double getRendimiento() {
+        return rendimiento;
+    }
      
     }
