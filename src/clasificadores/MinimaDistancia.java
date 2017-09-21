@@ -27,6 +27,7 @@ public class MinimaDistancia implements Clasificador{
     @Override
     public void entrenar(ArrayList<Patron> instancias) {
         contadorCorrectos = 0;
+        this.medias = new ArrayList<PatronRepresentativo>();
        // recorrer todas las instancias de entrenamiento
        // agregamos la primer media 
        //this.medias.add(new PatronRepresentativo(instancias.get(0)));
