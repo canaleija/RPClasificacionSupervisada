@@ -43,7 +43,7 @@ public class RPClasificacionSupervisada {
             //  entrenar
             GeneradorInstancias ge = new GeneradorInstancias(Tokenizador.inst);
             
-            ArrayList<Patron> ce = ge.generaInstancia(new int[]{2,3}, x*10, FactorSeleccion.RANDOM);
+            ArrayList<Patron> ce = ge.generaInstancia(new int[]{2,3}, 4*x, FactorSeleccion.PRIMEROS);
             knn.entrenar(ce);
             md.entrenar(ce);
           
@@ -55,12 +55,12 @@ public class RPClasificacionSupervisada {
             md.clasificaConjunto(ce);
             double renMd = md.getRendimiento();
             grafica.agregarDatoASerie("md",new XYDataItem(x, renMd));
-            System.out.println();
+           // System.out.println();
         }
         
         grafica.crearYmostrarGrafica();
        
-        System.out.println();
+      //  System.out.println();
     }
     
 }

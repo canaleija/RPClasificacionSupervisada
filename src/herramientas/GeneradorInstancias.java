@@ -35,6 +35,7 @@ public class GeneradorInstancias {
                break;
            }
            case PRIMEROS:{
+               seleccionaPrimeros(porcentaje, nuevaInstancia);
            break;
            }
            case ULTIMOS:{
@@ -66,28 +67,75 @@ public class GeneradorInstancias {
      return nuevaInstancia;
     }
 
+    
     private void seleccionaPorcentajeAleatorio(double porcentaje, ArrayList<Patron> nuevaInstancia) {
-        if (porcentaje==0){
-        // no se modifica la referencia
-        }else{
+        if (porcentaje == 0) {
+            // no se modifica la referencia
+        } else {
             Random ran = new Random();
-         // calcular la cantidad de elementos por clase 
-         for (int x=0; x < this.instanciaOriginal.getClases().size();x++){
-            int cantidadEliminar = calculaCantidad(x,porcentaje);
-            int auxRan = instanciaOriginal.getCantidades().get(x);
-            for(int y=0; y < cantidadEliminar;y++){
-              int pos = ran.nextInt(auxRan);
-              nuevaInstancia.remove(pos);
-              auxRan--;
+            // calcular la cantidad de elementos por clase 
+            for (int x = this.instanciaOriginal.getClases().size() - 1; x >= 0; x--) {
+                int cantidadEliminar = calculaCantidad(x, porcentaje);
+//                int auxRan = instanciaOriginal.getPatrones().size();
+                int auxRan = nMaximo(x);
+                
+                int auxRan1 = nMinimo(x);
+
+                System.out.println("");
+                for (int y = 0; y < cantidadEliminar; y++) {
+//              int pos = ran.nextInt(auxRan);
+                    int pos = (int) (Math.random() * (auxRan-auxRan1)) + auxRan1;
+                    nuevaInstancia.remove(pos);
+                    auxRan--;
+                }
             }
-         }
-       }
+        }
     }
+
 
     public int calculaCantidad(int id_Clase, double porcentaje) {
         int elementos = this.instanciaOriginal.getCantidades().get(id_Clase);
         return (int)((elementos*porcentaje)/100);
     }
+    
+    
+    private void seleccionaPrimeros(double cantidad, ArrayList<Patron> nuevaInstancia) {
+        int ca = (int) cantidad;
+        int tope = 0;
+        if (cantidad!=0){
+            for (int x=0; x< this.instanciaOriginal.getClases().size();x++){
+                int aux = instanciaOriginal.getCantidades().get(x);
+                if(aux-cantidad != 0){
+                    for(int y=tope; y < ca+tope;y++){
+                    nuevaInstancia.remove(y);
+                    }
+                    tope = tope +aux - (int)cantidad;
+                }
+            }
+        }
+         System.out.println();
+    }
+    
+    
+
+    private int nMinimo(int x) {
+        int nm=0;
+        for (int i = x; i < instanciaOriginal.getCantidades().size(); i++) {
+            nm=nm+instanciaOriginal.getCantidades().get(i);
+        }
+        nm=instanciaOriginal.getPatrones().size()-nm;
+        return nm;
+    }
+
+    private int nMaximo(int x) {
+        int nma = 0;
+        for (int i = 0; i <= x; i++) {
+            nma=nma+instanciaOriginal.getCantidades().get(i);
+        }
+        return nma;
+    }
+
+
     
     
     
