@@ -43,7 +43,7 @@ public class RPClasificacionSupervisada {
             //  entrenar
             GeneradorInstancias ge = new GeneradorInstancias(Tokenizador.inst);
             
-            ArrayList<Patron> ce = ge.generaInstancia(new int[]{2,3}, 4*x, FactorSeleccion.PRIMEROS);
+            ArrayList<Patron> ce = ge.generaInstancia(new int[]{2,3}, 5*x, FactorSeleccion.PRIMEROS);
             knn.entrenar(ce);
             md.entrenar(ce);
           

@@ -107,9 +107,9 @@ public class GeneradorInstancias {
                 int aux = instanciaOriginal.getCantidades().get(x);
                 if(aux-cantidad != 0){
                     for(int y=tope; y < ca+tope;y++){
-                    nuevaInstancia.remove(y);
+                    nuevaInstancia.remove(tope);
                     }
-                    tope = tope +aux - (int)cantidad;
+                    tope = tope + aux - (int)cantidad;
                 }
             }
         }
