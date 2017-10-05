@@ -69,9 +69,7 @@ public class GeneradorInstancias {
 
     
     private void seleccionaPorcentajeAleatorio(double porcentaje, ArrayList<Patron> nuevaInstancia) {
-        if (porcentaje == 0) {
-            // no se modifica la referencia
-        } else {
+       
             Random ran = new Random();
             // calcular la cantidad de elementos por clase 
             for (int x = this.instanciaOriginal.getClases().size() - 1; x >= 0; x--) {
@@ -81,7 +79,7 @@ public class GeneradorInstancias {
                 
                 int auxRan1 = nMinimo(x);
 
-                System.out.println("");
+              //  System.out.println("");
                 for (int y = 0; y < cantidadEliminar; y++) {
 //              int pos = ran.nextInt(auxRan);
                     int pos = (int) (Math.random() * (auxRan-auxRan1)) + auxRan1;
@@ -90,12 +88,17 @@ public class GeneradorInstancias {
                 }
             }
         }
-    }
 
 
     public int calculaCantidad(int id_Clase, double porcentaje) {
         int elementos = this.instanciaOriginal.getCantidades().get(id_Clase);
-        return (int)((elementos*porcentaje)/100);
+        int aEliminar = (int)((elementos*porcentaje)/100);
+        if (aEliminar>=elementos){
+          return elementos-1;
+        }
+        
+        
+        return aEliminar;
     }
     
     
@@ -105,15 +108,22 @@ public class GeneradorInstancias {
         if (cantidad!=0){
             for (int x=0; x< this.instanciaOriginal.getClases().size();x++){
                 int aux = instanciaOriginal.getCantidades().get(x);
-                if(aux-cantidad != 0){
+                if(aux-cantidad > 0){
                     for(int y=tope; y < ca+tope;y++){
                     nuevaInstancia.remove(tope);
                     }
                     tope = tope + aux - (int)cantidad;
+                }else{
+                 
+                   ca = aux-1; 
+                   for(int y=tope; y < ca+tope;y++){
+                    nuevaInstancia.remove(tope);
+                    }
+                    tope = tope + aux - (int)ca;
                 }
             }
         }
-         System.out.println();
+     //    System.out.println();
     }
     
     

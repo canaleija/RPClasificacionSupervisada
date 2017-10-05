@@ -5,6 +5,8 @@
  */
 package clasificadores;
 
+import herramientas.MatrizConfusion;
+import herramientas.Tokenizador;
 import java.util.ArrayList;
 import modelos.Clasificador;
 import modelos.Patron;
@@ -19,10 +21,12 @@ public class MinimaDistancia implements Clasificador{
     private ArrayList<PatronRepresentativo> medias;
     private double contadorCorrectos;
     private double rendimiento;
+    private MatrizConfusion matriz;
     
     public MinimaDistancia(){
        this.medias = new ArrayList<PatronRepresentativo>();
        this.contadorCorrectos = 0;
+       matriz = new MatrizConfusion(Tokenizador.inst.getClases().size());
     }
     @Override
     public void entrenar(ArrayList<Patron> instancias) {
@@ -68,11 +72,14 @@ public class MinimaDistancia implements Clasificador{
              
             }
         }
-        
-         if(patron.getClase().equals(patron.getClase_resultado()))
-              {
-                  contadorCorrectos++;
-              }
+        // mandamos información a la matriz de confusiòn
+        int pertenece = Tokenizador.inst.getClases().indexOf(patron.getClase());
+        int resultado = Tokenizador.inst.getClases().indexOf(patron.getClase_resultado());
+        this.getMatriz().acumula(pertenece, resultado);
+//         if(patron.getClase().equals(patron.getClase_resultado()))
+//              {
+//                  contadorCorrectos++;
+//              }
         
     }
     
@@ -103,6 +110,13 @@ public class MinimaDistancia implements Clasificador{
      */
     public double getRendimiento() {
         return rendimiento;
+    }
+
+    /**
+     * @return the matriz
+     */
+    public MatrizConfusion getMatriz() {
+        return matriz;
     }
     
 }

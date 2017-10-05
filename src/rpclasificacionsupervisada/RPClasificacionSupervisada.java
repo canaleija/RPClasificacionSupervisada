@@ -28,39 +28,48 @@ public class RPClasificacionSupervisada {
     public static void main(String[] args) {
        
            
-        Tokenizador.leerInstancias();
-    
-        Grafica grafica = new Grafica("Comparación","%","Comparación Rendimientos");
-        grafica.agrearSerie("md");
-        grafica.agrearSerie("knn");
-        
-        MinimaDistancia md = new MinimaDistancia();
-        Knn knn = new Knn(4);
-        
-        // crear las comparaciones 
-        for (int x=0; x<10;x++){
-            
-            //  entrenar
-            GeneradorInstancias ge = new GeneradorInstancias(Tokenizador.inst);
-            
-            ArrayList<Patron> ce = ge.generaInstancia(new int[]{2,3}, 5*x, FactorSeleccion.PRIMEROS);
-            knn.entrenar(ce);
-            md.entrenar(ce);
-          
-            
-            knn.clasificaConjunto(ce);
-            double renKnn = knn.getRendimiento();
-            grafica.agregarDatoASerie("knn", new XYDataItem(x, renKnn));
-            //  clasificar 
-            md.clasificaConjunto(ce);
-            double renMd = md.getRendimiento();
-            grafica.agregarDatoASerie("md",new XYDataItem(x, renMd));
-           // System.out.println();
-        }
-        
-        grafica.crearYmostrarGrafica();
-       
-      //  System.out.println();
+          Tokenizador.leerInstancias();
+          GeneradorInstancias ins = new GeneradorInstancias(Tokenizador.inst);
+         MinimaDistancia md = new MinimaDistancia();
+         md.entrenar(Tokenizador.inst.getPatrones());
+         md.clasificaConjunto(Tokenizador.inst.getPatrones());
+         System.out.println();
+
+//            knn.entrenar(ce);
+//            md.entrenar(ce);
+
+
+//        Grafica grafica = new Grafica("Comparación","%","Comparación Rendimientos");
+//        grafica.agrearSerie("md");
+//        grafica.agrearSerie("knn");
+//        
+//        MinimaDistancia md = new MinimaDistancia();
+//        Knn knn = new Knn(4);
+//        
+//        // crear las comparaciones 
+//        for (int x=0; x<50;x++){
+//            
+//            //  entrenar
+//            GeneradorInstancias ge = new GeneradorInstancias(Tokenizador.inst);
+//            
+//            ArrayList<Patron> ce = ge.generaInstancia(new int[]{2,3}, 6*x, FactorSeleccion.PRIMEROS);
+//            knn.entrenar(ce);
+//            md.entrenar(ce);
+//          
+//            
+//            knn.clasificaConjunto(ce);
+//            double renKnn = knn.getRendimiento();
+//            grafica.agregarDatoASerie("knn", new XYDataItem(x, renKnn));
+//            //  clasificar 
+//            md.clasificaConjunto(ce);
+//            double renMd = md.getRendimiento();
+//            grafica.agregarDatoASerie("md",new XYDataItem(x, renMd));
+//           // System.out.println();
+//        }
+//        
+//        grafica.crearYmostrarGrafica();
+//       
+//      //  System.out.println();
     }
     
 }
