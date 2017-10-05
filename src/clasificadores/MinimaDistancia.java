@@ -89,8 +89,9 @@ public class MinimaDistancia implements Clasificador{
        for (Patron aux: patrones){
            clasifica(aux);
        }
+       this.matriz.calculaEficacias();
        // calcular el % de clasificion correcta
-       this.rendimiento = (this.contadorCorrectos/patrones.size())*100;
+       this.rendimiento = this.matriz.getEficaciaGeneral();
     }
 
     private int buscarEnMedias(Patron patron) {
