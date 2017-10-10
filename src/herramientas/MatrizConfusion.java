@@ -32,6 +32,8 @@ public class MatrizConfusion {
          clasCorrectos++;
         }
         this.matriz[pertenece][resultado]++;
+        // contando los clasificados pro clase
+        this.matriz[pertenece][this.matriz[pertenece].length-1]++;
     }
     
     public void calculaEficacias(){
