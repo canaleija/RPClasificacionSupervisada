@@ -39,6 +39,7 @@ public class GeneradorInstancias {
            break;
            }
            case ULTIMOS:{
+               seleccionaUltimos(porcentaje, nuevaInstancia);
            break;
            }
            default:{System.out.println("No se reconocer el factor de selección");}
@@ -146,7 +147,25 @@ public class GeneradorInstancias {
     }
 
 
-    
+     private void seleccionaUltimos(double cantidad, ArrayList<Patron> nuevaInstancia) {
+       
+            Random ran = new Random();
+            // calcular la cantidad de elementos por clase 
+            for (int x = this.instanciaOriginal.getClases().size() - 1; x >= 0; x--) {
+                int cantidadEliminar = calculaCantidad(x,cantidad);
+//                int auxRan = instanciaOriginal.getPatrones().size();
+                int auxRan = nMaximo(x);
+            
+
+              //  System.out.println("");
+                for (int y = 0; y < cantidadEliminar; y++) {
+//              int pos = ran.nextInt(auxRan);
+                   
+                    nuevaInstancia.remove(auxRan);
+                    auxRan--;
+                }
+            }
+        }
     
     
 }

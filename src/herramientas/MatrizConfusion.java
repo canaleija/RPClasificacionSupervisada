@@ -46,7 +46,15 @@ public class MatrizConfusion {
           }
           
     }
-
+    
+    public void mostrarMatriz(){
+        if (this.matriz !=null){
+         MatrizVisual visual = new MatrizVisual(matriz);
+         visual.mostrarMatriz();
+        }
+       
+    
+    }
     /**
      * @return the eficaciaGeneral
      */

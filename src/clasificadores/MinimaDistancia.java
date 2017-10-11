@@ -84,8 +84,7 @@ public class MinimaDistancia implements Clasificador{
     }
     
     public void clasificaConjunto (ArrayList<Patron> patrones){
-     this.contadorCorrectos = 0;
-     this.rendimiento = 0;
+     
        for (Patron aux: patrones){
            clasifica(aux);
        }

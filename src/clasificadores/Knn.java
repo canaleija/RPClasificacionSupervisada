@@ -5,6 +5,7 @@
  */
 package clasificadores;
 
+import herramientas.MatrizConfusion;
 import herramientas.Ordenamiento;
 import herramientas.Tokenizador;
 import java.util.ArrayList;
@@ -21,14 +22,13 @@ public class Knn  implements Clasificador{
     private ArrayList<Patron> instancias;
     private ArrayList<DistanciaKnn> distancias;
     private int k;
-    private double contadorCorrectos;
     private double rendimiento;
-    
+    private MatrizConfusion matriz;
     
     public Knn(int k) {
          this.distancias = new ArrayList<>();
          this.k = k;
-         this.contadorCorrectos = 0;
+         matriz = new MatrizConfusion(Tokenizador.inst.getClases().size());
     }
     
     
@@ -57,21 +57,23 @@ public class Knn  implements Clasificador{
      String claseResultado = verificarKvecinos();
      patron.setClase_resultado(claseResultado);
      
-       if(patron.getClase().equals(patron.getClase_resultado()))
-              {
-                  contadorCorrectos++;
-              }
+     // mandamos información a la matriz de confusiòn
+        int pertenece = Tokenizador.inst.getClases().indexOf(patron.getClase());
+        int resultado = Tokenizador.inst.getClases().indexOf(patron.getClase_resultado());
+        this.getMatriz().acumula(pertenece, resultado);
+        
        
        System.out.println();
     }
     
     public void clasificaConjunto (ArrayList<Patron> patrones){
-     this.contadorCorrectos = 0;
+     
        for (Patron aux: patrones){
            clasifica(aux);
        }
+       this.matriz.calculaEficacias();
        // calcular el % de clasificion correcta
-       this.rendimiento = (this.contadorCorrectos/patrones.size())*100;
+       this.rendimiento = this.getMatriz().getEficaciaGeneral();
     }
 
 
@@ -104,6 +106,13 @@ public class Knn  implements Clasificador{
      */
     public double getRendimiento() {
         return rendimiento;
+    }
+
+    /**
+     * @return the matriz
+     */
+    public MatrizConfusion getMatriz() {
+        return matriz;
     }
      
     }

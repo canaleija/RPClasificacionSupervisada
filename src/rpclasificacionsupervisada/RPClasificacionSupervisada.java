@@ -28,11 +28,17 @@ public class RPClasificacionSupervisada {
     public static void main(String[] args) {
        
            
-          Tokenizador.leerInstancias();
-          GeneradorInstancias ins = new GeneradorInstancias(Tokenizador.inst);
+         Tokenizador.leerInstancias();
+         GeneradorInstancias ins = new GeneradorInstancias(Tokenizador.inst);
          MinimaDistancia md = new MinimaDistancia();
+         Knn knn = new Knn(3);
          md.entrenar(Tokenizador.inst.getPatrones());
          md.clasificaConjunto(Tokenizador.inst.getPatrones());
+         md.getMatriz().mostrarMatriz();
+         knn.entrenar(Tokenizador.inst.getPatrones());
+         knn.clasificaConjunto(Tokenizador.inst.getPatrones());
+         knn.getMatriz().mostrarMatriz();
+        
          System.out.println();
 
 //            knn.entrenar(ce);
