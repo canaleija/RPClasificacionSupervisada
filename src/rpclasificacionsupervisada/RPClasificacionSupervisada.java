@@ -7,6 +7,7 @@ package rpclasificacionsupervisada;
 
 import clasificadores.Knn;
 import clasificadores.MinimaDistancia;
+import clasificadores.NaiveBayes;
 import herramientas.FactorSeleccion;
 import herramientas.GeneradorInstancias;
 import herramientas.Grafica;
@@ -27,19 +28,22 @@ public class RPClasificacionSupervisada {
      */
     public static void main(String[] args) {
        
+   
            
          Tokenizador.leerInstancias();
          GeneradorInstancias ins = new GeneradorInstancias(Tokenizador.inst);
-         MinimaDistancia md = new MinimaDistancia();
-         Knn knn = new Knn(3);
-         md.entrenar(Tokenizador.inst.getPatrones());
-         md.clasificaConjunto(Tokenizador.inst.getPatrones());
-         md.getMatriz().mostrarMatriz();
-         knn.entrenar(Tokenizador.inst.getPatrones());
-         knn.clasificaConjunto(Tokenizador.inst.getPatrones());
-         knn.getMatriz().mostrarMatriz();
-        
-         System.out.println();
+          NaiveBayes bayes = new NaiveBayes();
+          bayes.entrenar(Tokenizador.inst.getPatrones());
+//         MinimaDistancia md = new MinimaDistancia();
+//         Knn knn = new Knn(3);
+//         md.entrenar(Tokenizador.inst.getPatrones());
+//         md.clasificaConjunto(Tokenizador.inst.getPatrones());
+//         md.getMatriz().mostrarMatriz();
+//         knn.entrenar(Tokenizador.inst.getPatrones());
+//         knn.clasificaConjunto(Tokenizador.inst.getPatrones());
+//         knn.getMatriz().mostrarMatriz();
+//        
+//         System.out.println();
 
 //            knn.entrenar(ce);
 //            md.entrenar(ce);
