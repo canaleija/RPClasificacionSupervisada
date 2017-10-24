@@ -34,7 +34,7 @@ public class RPClasificacionSupervisada {
          GeneradorInstancias ins = new GeneradorInstancias(Tokenizador.inst);
           NaiveBayes bayes = new NaiveBayes();
           bayes.entrenar(Tokenizador.inst.getPatrones());
-          Patron aux = new Patron(new double[]{6,130,8},"desconocido");
+          Patron aux = new Patron(new double[]{5.9,190,5},"desconocido");
           bayes.clasifica(aux);
 //         MinimaDistancia md = new MinimaDistancia();
 //         Knn knn = new Knn(3);

@@ -5,6 +5,7 @@
  */
 package clasificadores;
 
+import herramientas.MatrizConfusion;
 import herramientas.Tokenizador;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -19,11 +20,15 @@ public class NaiveBayes implements Clasificador{
 
     // probabilidades a priori
     private double[] aprioris;
+    private double[] posteriori;
     private Dimension dim;
     private double medias[][];
     private double varianzas[][];
+    private double rendimiento;
+    private MatrizConfusion matriz;
 
     public NaiveBayes() {
+        this.matriz = new MatrizConfusion(Tokenizador.inst.getClases().size());
     }
     
     
@@ -93,6 +98,8 @@ public class NaiveBayes implements Clasificador{
        double distribucionNormal [][] = new double[(int)dim.getHeight()][(int)dim.getWidth()];
        double muestra[] = patron.getVectorCa();
        double evidencia=0;
+       this.posteriori= new double[aprioris.length];
+       
        for(int c=0;c<numClases;c++){
            double producto = aprioris[c];
            for(int ca=0; ca<dim.getWidth();ca++){
@@ -106,13 +113,50 @@ public class NaiveBayes implements Clasificador{
            evidencia+=producto;
            
        }
-       
-       
-      System.out.println();
-       // calcular evidencia
+          
+       double aM = 0;
+       int iaM = -1;
        // calcular las diferentes probabilidades posterioris
-       // seleccionas la mayor de las posterioris para definir la clase resultante
+	   for(int i=0;i<this.aprioris.length;i++){
+		   posteriori[i]=aprioris[i];
+		   for(int j=0;j<patron.getVectorCa().length;j++){
+			   posteriori[i]*=distribucionNormal[i][j];
+		   }
+		   posteriori[i]/=evidencia;
+                   if(posteriori[i]>aM){
+                    aM = posteriori[i];
+                    iaM=i;
+                   }
+	   }
+
+       String clase = Tokenizador.inst.getClases().get(iaM);
+       patron.setClase_resultado(clase);
        
+       
+    }
+    
+    public void clasificaConjunto (ArrayList<Patron> patrones){
+     
+       for (Patron aux: patrones){
+           clasifica(aux);
+       }
+       this.matriz.calculaEficacias();
+       // calcular el % de clasificion correcta
+       this.rendimiento = this.matriz.getEficaciaGeneral();
+    }
+    
+     /**
+     * @return the rendimiento
+     */
+    public double getRendimiento() {
+        return rendimiento;
+    }
+
+    /**
+     * @return the matriz
+     */
+    public MatrizConfusion getMatriz() {
+        return matriz;
     }
     
 }
