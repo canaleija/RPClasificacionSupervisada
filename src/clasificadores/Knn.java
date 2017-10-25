@@ -63,7 +63,7 @@ public class Knn  implements Clasificador{
         this.getMatriz().acumula(pertenece, resultado);
         
        
-       System.out.println();
+      
     }
     
     public void clasificaConjunto (ArrayList<Patron> patrones){
