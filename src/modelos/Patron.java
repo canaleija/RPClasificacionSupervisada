@@ -89,5 +89,12 @@ public class Patron {
         return Math.sqrt(distancia);
     }
     
+    public void trasladar(Patron aux){
+    // recorrer el numero de caracteristicas 
+    for (int x=0; x < this.vectorCa.length;x++){
+      this.vectorCa[x]-=aux.getVectorCa()[x];
+    }
+    
+    }
     
 }

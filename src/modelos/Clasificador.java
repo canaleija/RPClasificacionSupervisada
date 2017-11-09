@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import herramientas.MatrizConfusion;
 import java.util.ArrayList;
 
 /**
@@ -15,4 +16,7 @@ public interface Clasificador {
     
     public void entrenar(ArrayList<Patron> instancias);
     public void clasifica(Patron patron);
+    public void clasificaConjunto(ArrayList<Patron> conjunto);
+    public double getRendimiento();
+    public MatrizConfusion getMatriz();
 }

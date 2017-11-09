@@ -83,6 +83,7 @@ public class MinimaDistancia implements Clasificador{
         
     }
     
+    @Override
     public void clasificaConjunto (ArrayList<Patron> patrones){
      
        for (Patron aux: patrones){

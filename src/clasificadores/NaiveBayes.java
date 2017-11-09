@@ -140,6 +140,7 @@ public class NaiveBayes implements Clasificador{
        
     }
     
+    @Override
     public void clasificaConjunto (ArrayList<Patron> patrones){
      
        for (Patron aux: patrones){
