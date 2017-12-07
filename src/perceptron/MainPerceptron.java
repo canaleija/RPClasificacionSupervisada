@@ -5,6 +5,7 @@
  */
 package perceptron;
 
+import herramientas.Tokenizador;
 import java.util.ArrayList;
 import modelos.Patron;
 
@@ -18,12 +19,10 @@ public class MainPerceptron {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        PerceptronDelta pd = new PerceptronDelta(new double[]{-8.7,-67.01}, 15, 0.3);
-        ArrayList<Patron> instancias = new ArrayList<>();
-        instancias.add(new Patron(new double[]{0,0},"0"));
-        instancias.add(new Patron(new double[]{1,0},"1"));
-        instancias.add(new Patron(new double[]{0,1},"1"));
-        instancias.add(new Patron(new double[]{1,1},"1"));
+        Tokenizador.leerInstancias();
+        ArrayList<Patron> instancias = Tokenizador.inst.getPatrones();
+        PerceptronDelta pd = new PerceptronDelta(new double[]{0.7,0.1},0.6,0.3);
+      
         pd.entrenar(instancias);
         System.out.println();
     }

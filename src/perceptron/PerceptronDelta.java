@@ -48,11 +48,13 @@ public class PerceptronDelta {
       int c = 1, i=0;
       while(c<instancias.size()){
       // recorremos las instancias
+      int k=1;
       for (Patron aux: this.instancias){
        int y = clasifica(aux);
        if(y==Integer.parseInt(aux.getClase())){
          // no calcula deltas
         c++;
+        k++;
        }else{
         // ajustar pesos y umbral 
         
@@ -66,7 +68,7 @@ public class PerceptronDelta {
       
       }
       i++;
-      System.out.println(i);
+      System.out.println(i+"--: "+k);
       }
         
       return true;
